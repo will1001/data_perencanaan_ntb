@@ -7,12 +7,20 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 Future<List<Data>> fetchData() async {
+  var responseJson;
   String url = "http://10.0.2.2/job/Web_Data_Perencanaan_NTB/api/data";
   final response = await http.get(url, headers: {
     'WDP-NTB-KEY': 'alsodhr74jrhfot97264jgnd85jg7jsofjgur5',
   });
-  var responseJson = json.decode(response.body);
-  return (responseJson['data'] as List).map((p) => Data.fromJson(p)).toList();
+  if(response.statusCode==200){
+      responseJson = json.decode(response.body);
+      responseJson = (responseJson['data'] as List).map((p) => Data.fromJson(p)).toList();
+  }else{
+    responseJson=null;
+  }
+
+  return responseJson;
+ 
 }
 
 class Data {
@@ -191,7 +199,25 @@ class _DataPokokState extends State<DataPokok> {
                             )
                         .toList();
                     return InfosList(datas: data);
-                  } else if (snapshot.hasError) {
+                  } else if (!snapshot.hasData) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
+                        Container(
+                          child: SizedBox(
+                            height: 250.0,
+                            width: 250.0,
+                          ),
+                        ),
+                        Center(
+                        child: Text("Mohon Cek koneksi internet Anda",style: TextStyle(
+                              fontSize: 23.0,
+                              fontWeight: FontWeight.w500
+                            ),),
+                      ),
+                      ],
+                    );
+                  }else if (snapshot.hasError) {
                     return Text("${snapshot.error}");
                   }
 

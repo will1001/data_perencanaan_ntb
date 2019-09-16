@@ -40,6 +40,12 @@ class _HomeState extends State<Home> {
               ),
             ),
             Container(
+              decoration: BoxDecoration(
+                border: Border(
+                  left: BorderSide(color: Colors.blue,width: 1.0),
+                  right: BorderSide(color: Colors.blue,width: 1.0),
+                )
+              ),
               child: Padding(
                 padding: const EdgeInsets.all(18.0),
                 child: ListTile(
