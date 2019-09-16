@@ -42,10 +42,10 @@ class _SplashScreenState extends State<SplashScreen> {
                 SizedBox(
                   width: 250.0,
                   height: 250.0,
-                  child: FadeInImage.assetNetwork(
+                  child: FadeInImage(
                     fadeInDuration: const Duration(seconds: 1),
-                    placeholder: 'assets/images/LogoNTB.png',
-                    image: 'assets/images/LogoNTB.png',
+                    placeholder: AssetImage('assets/images/LogoNTB.png'),
+                    image: AssetImage('assets/images/LogoNTB.png'),
                   ),
                 ),
                 Padding(
